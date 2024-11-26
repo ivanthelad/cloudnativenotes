@@ -95,7 +95,7 @@ az network vnet subnet update --resource-group $RESOURCE_GROUP --vnet-name $VNET
 INFRASTRUCTURE_SUBNET=$(az network vnet subnet show --resource-group ${RESOURCE_GROUP} --vnet-name $VNET_NAME --name infrastructure-subnet --query "id" -o tsv | tr -d '[:space:]' )
 
 print_in_color "$YELLOW" "Create an ACA environment"
-az containerapp env create --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --location "$LOCATION" --infrastructure-subnet-resource-id $INFRASTRUCTURE_SUBNET --internal-only --infrastructure-resource-group $MANAGED_RG
+az containerapp env create --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --location "$LOCATION" --infrastructure-subnet-resource-id $INFRASTRUCTURE_SUBNET --internal-only 
 export CONTAINERAPPS_ENVIRONMENT_ID=$(az containerapp env show --name ${CONTAINERAPPS_ENVIRONMENT} --resource-group ${RESOURCE_GROUP} --query id --out json | tr -d '"')
 export ENVIRONMENT_DEFAULT_DOMAIN=$(az containerapp env show --name ${CONTAINERAPPS_ENVIRONMENT} --resource-group ${RESOURCE_GROUP} --query properties.defaultDomain --out json | tr -d '"')
 print_in_color "$GREEN" " CONTAINERAPPS_ENVIRONMENT_ID = $CONTAINERAPPS_ENVIRONMENT_ID"
